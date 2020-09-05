@@ -1,0 +1,4 @@
+/target
+Cargo.lock
+/star_map_generator_extern/Cargo.lock
+/star_map_generator_extern/target
