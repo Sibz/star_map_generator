@@ -11,3 +11,11 @@ pub fn generate_star_map_in_preallocated_memory(
     Ok(())
     //Err(String::from("re"))
 }
+
+#[repr(C)]
+pub struct StarMapEntry {
+    pub x: u32,
+    pub y: u32,
+    pub z: u32,
+    pub w: u32,
+}
