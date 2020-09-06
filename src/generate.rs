@@ -8,7 +8,7 @@ use rand_pcg::Pcg64;
 pub fn generate_into_slice(entries: &mut [StarMapEntry], options: StarMapOptions) {
     let len = entries.len() as f32;
     let mut i: u32 = 0;
-    let mut pcg_rng = Pcg64::seed_from_u64(2);
+    let mut pcg_rng = Pcg64::seed_from_u64(options.seed);
 
     for e in entries.iter_mut() {
         let x = generate_x(i, i as f32 / len, options.core_size, &mut pcg_rng);

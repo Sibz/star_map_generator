@@ -15,6 +15,7 @@ macro_rules! name_of {
 
 #[repr(C)]
 pub struct StarMapOptions {
+    pub seed: u64,
     pub object_count: u32,
     pub height: f32,
     pub depth: f32,
@@ -30,6 +31,7 @@ pub struct StarMapOptions {
 impl StarMapOptions {
     pub fn defaults() -> StarMapOptions {
         StarMapOptions {
+            seed: 1337,
             object_count: 10000,
             height: 0.5,
             depth: 0.5,
