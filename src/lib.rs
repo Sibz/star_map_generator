@@ -1,3 +1,4 @@
+mod generate;
 pub mod options;
 mod star_map_c;
 #[cfg(test)]
@@ -21,12 +22,12 @@ pub fn generate_star_map_in_preallocated_memory(
         len: options.object_count,
     };
 
-    generate_into_slice(&mut x);
+    generate::generate_into_slice(&mut x, options);
 
     Ok(())
 }
 
-pub fn generate(options: StarMapOptions) -> Vec<StarMapEntry> {
+pub fn generate(options: StarMapOptions) -> Result<Vec<StarMapEntry>, String> {
     let mut x: Vec<StarMapEntry> = vec![
         StarMapEntry {
             x: 0f32,
@@ -36,20 +37,12 @@ pub fn generate(options: StarMapOptions) -> Vec<StarMapEntry> {
         };
         options.object_count as usize
     ];
-    generate_into_slice(&mut x);
-    x
-}
-
-fn generate_into_slice(entries: &mut [StarMapEntry]) {
-    entries.len();
-    let mut i: f32 = 0f32;
-    for e in entries.iter_mut() {
-        e.x = i;
-        e.y = i + 1f32;
-        e.z = i + 2f32;
-        e.w = i + 3f32;
-        i = i + 1f32;
+    let result = options.validate();
+    if result.is_err() {
+        return Err(result.unwrap_err());
     }
+    generate::generate_into_slice(&mut x, options);
+    Ok(x)
 }
 
 #[repr(C)]
