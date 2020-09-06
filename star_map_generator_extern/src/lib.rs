@@ -24,6 +24,7 @@ pub extern "C" fn generate_star_map_in_preallocated_memory(
     }
 }
 
+#[no_mangle]
 pub extern "C" fn get_default_star_map_options() -> StarMapOptions {
     StarMapOptions::defaults()
 }
