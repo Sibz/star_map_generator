@@ -1,0 +1,1 @@
+copy "C:\Users\steve\OneDrive\Documents\Development\Rust Projects\star_map_generator\star_map_generator_extern\target\debug\__star_gen_c.dll" "C:\Users\steve\UnityProjects\RustTest\Assets\Plugins\"
