@@ -1,9 +1,12 @@
+extern crate libc;
 extern crate star_map_generator;
 
 mod ffi_result;
 
 use ffi_result::result;
+use libc::c_char;
 use star_map_generator::*;
+use std::ffi::CString;
 
 #[no_mangle]
 pub extern "C" fn generate_star_map_in_preallocated_memory(
@@ -19,7 +22,7 @@ pub extern "C" fn generate_star_map_in_preallocated_memory(
         };
     });
     match r {
-        Result::Ok(_) => result::new(500, "Generate did not return a result"),
+        Result::Ok(rus) => rus,
         Err(_) => result::new(1, "Generate Star Map Panicked!"),
     }
 }
@@ -27,4 +30,14 @@ pub extern "C" fn generate_star_map_in_preallocated_memory(
 #[no_mangle]
 pub extern "C" fn get_default_star_map_options() -> StarMapOptions {
     StarMapOptions::defaults()
+}
+
+#[no_mangle]
+pub extern "C" fn result_message_free(s: *mut c_char) {
+    unsafe {
+        if s.is_null() {
+            return;
+        }
+        CString::from_raw(s)
+    };
 }
