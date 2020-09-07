@@ -41,7 +41,7 @@ impl StarMapOptions {
             depth: 0.5,
             depth_distribution: 0.75,
             core_size: 0.1,
-            swirl_magnitude: 0.25,
+            swirl_magnitude: 0.75,
             val4_0_max: 255,
             val4_1_max: 255,
             val4_2_max: 255,
