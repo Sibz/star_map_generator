@@ -33,7 +33,7 @@ impl StarMapOptions {
         StarMapOptions {
             seed: 1337,
             object_count: 10000,
-            height: 0.5,
+            height: 0.25,
             depth: 0.5,
             core_size: 0.1,
             swirl_magnitude: 0.25,
