@@ -9,15 +9,24 @@ use std::f32::consts::PI;
 pub fn generate_into_slice(entries: &mut [StarMapEntry], options: StarMapOptions)
 {
     let mut invert: bool = false;
-    let mut pcg_rng = Pcg64::seed_from_u64(options.seed);
+    //let mut pcg_rng = Pcg64::seed_from_u64(options.seed);
+    let mut rng = Pcg64::seed_from_u64(options.seed);
+
+
 
     for e in entries.iter_mut() {
-        let rand: u128 = pcg_rng.gen();
-        let a: f32 = (rand >> 96) as f32 / u32::MAX as f32;
-        let b: f32 = ((rand << 32) >> 96) as f32 / u32::MAX as f32;
-        let c: f32 = ((rand << 64) >> 96) as f32 / u32::MAX as f32;
-        //let d: u32 = ((rand << 96) >> 96) as u32;
-        let x = generate_x(invert, options.core_size, options.centre_distribution, a);
+
+        let a = rng.gen_range(0f32,1f32);
+        let b = rng.gen_range(0f32,1f32);
+        let c = rng.gen_range(0f32,1f32);
+        let d = rng.gen_range(0f32,1f32);
+
+        //test(e);
+
+        generate_x(invert, options.core_size, options.centre_distribution, e, a);
+
+        let x = e.x;
+
         let (x1, y1) = random_rotate2d_with_max_distance_and_distribute(
             (x, e.y),
             options.height,
@@ -32,7 +41,7 @@ pub fn generate_into_slice(entries: &mut [StarMapEntry], options: StarMapOptions
             c,
         );
 
-        let (x3, z2) = apply_swirl(xz, options.swirl_magnitude, &mut pcg_rng);
+        let (x3, z2) = apply_swirl(xz, options.swirl_magnitude, d);
 
         e.x = x3;
         e.y = y1;
@@ -42,19 +51,21 @@ pub fn generate_into_slice(entries: &mut [StarMapEntry], options: StarMapOptions
     }
 }
 
+// fn test(abc: &mut StarMapEntry)
+// {
+//     abc.x = 1f32;
+// }
+
 #[inline(always)]
-fn generate_x(invert: bool, core_size: f32, distribution: f32, a: f32) -> f32
+fn generate_x(invert: bool, core_size: f32, distribution: f32, e: &mut StarMapEntry, a: f32)
 {
-    let mut rnd = a; //(a as f32) / u32::MAX as f32; //rng.gen_range(0f32, 1f32 + std::f32::EPSILON);
-    rnd = scale(rnd, 1f32, FRAC_PI_2);
-    rnd = skew_by_cosine_with_distribution(rnd, distribution);
-    rnd = shift(rnd, core_size);
+    e.x = scale(a, 1f32, FRAC_PI_2);
+    e.x = skew_by_cosine_with_distribution(e.x, distribution);
+    e.x = shift(e.x, core_size);
     //let rnd = rnd * (1f32 - core_size) + core_size;
 
     if invert {
-        rnd
-    } else {
-        -rnd
+        e.x = -e.x;
     }
 }
 
@@ -91,21 +102,6 @@ fn random_rotate2d_with_max_distance_and_distribute(
         max_angle = f32::min(max_angle, PI);
     }
 
-    //  zero to max angle
-    //let angle = lerp(&0f32, &(max_angle * 2f32), &(rng.gen_range(0f32, 1f32)));
-    //let mut angle = a * max_angle; // rng.gen_range(0f32, max_angle + f32::EPSILON);
-
-    // will be somewhere in between zero to PI
-    //let angle_scaled = angle / (max_angle * 2f32) * PI;
-
-    // will be somewhere in half sine wave 0 to 1 to 0
-    //let sine = (angle_scaled).sin();
-
-    // a flatter or taller wave
-    //let sine_distribution = sine * distribution; // * warp;
-
-    //let angle = (angle - max_angle) - (angle - max_angle) * sine_distribution;
-
     let angle = skew_by_cosine_with_distribution(
         scale(a * max_angle, 1f32, PI) - max_angle / 2f32,
         distribution,
@@ -114,11 +110,11 @@ fn random_rotate2d_with_max_distance_and_distribute(
     rotate_2d(angle, xy)
 }
 #[inline(always)]
-fn apply_swirl(xz: (f32, f32), swirl_magnitude: f32, rng: &mut Pcg64) -> (f32, f32)
+fn apply_swirl(xz: (f32, f32), swirl_magnitude: f32, rng: f32) -> (f32, f32)
 {
     let (x, z) = xz;
     let radian_rotation = swirl_magnitude * PI * (x.abs() + z.abs());
-    let rand_rotation = rng.gen_range(radian_rotation * 0.8, radian_rotation);
+    let rand_rotation = radian_rotation + (rng / 5f32 - 0.1f32) * radian_rotation;
     rotate_2d(rand_rotation, xz)
 }
 
