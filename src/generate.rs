@@ -8,17 +8,16 @@ use std::f32::consts::PI;
 
 pub fn generate_into_slice(entries: &mut [StarMapEntry], options: StarMapOptions)
 {
-    let mut i: u32 = 0;
+    let mut invert: bool = false;
     let mut pcg_rng = Pcg64::seed_from_u64(options.seed);
 
     for e in entries.iter_mut() {
         let x = generate_x(
-            i,
+            invert,
             options.core_size,
             options.centre_distribution,
             &mut pcg_rng,
         );
-        //e.x = x;
         let (x1, y1) = random_rotate2d_with_max_distance_and_distribute(
             (x, e.y),
             options.height,
@@ -35,32 +34,24 @@ pub fn generate_into_slice(entries: &mut [StarMapEntry], options: StarMapOptions
 
         let (x3, z2) = apply_swirl(xz, options.swirl_magnitude, &mut pcg_rng);
 
-        // let (x3, z2) = random_rotate2d(
-
-        // );
-
         e.x = x3;
         e.y = y1;
         e.z = z2;
-        // e.y = i + 1f32;
-        // e.z = i + 2f32;
-        // e.w = i + 3f32;
-        i = i + 1;
+
+        invert = !invert;
     }
 }
 
-fn generate_x(i: u32, core_size: f32, distribution: f32, rng: &mut Pcg64) -> f32
+fn generate_x(invert: bool, core_size: f32, distribution: f32, rng: &mut Pcg64) -> f32
 {
     let rnd = rng.gen_range(0f32, 1f32 + std::f32::EPSILON);
     let rnd_scaled = rnd * FRAC_PI_2;
     let sine = rnd_scaled.cos();
     let sine_warp = sine * distribution;
-
     let rnd = rnd - rnd * sine_warp;
-
     let rnd = rnd * (1f32 - core_size) + core_size;
 
-    if i % 2 == 0 {
+    if invert {
         rnd
     } else {
         -rnd
