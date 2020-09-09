@@ -44,12 +44,11 @@ pub fn generate_into_slice(entries: &mut [StarMapEntry], options: StarMapOptions
 
 fn generate_x(invert: bool, core_size: f32, distribution: f32, rng: &mut Pcg64) -> f32
 {
-    let rnd = rng.gen_range(0f32, 1f32 + std::f32::EPSILON);
-    let rnd_scaled = rnd * FRAC_PI_2;
-    let sine = rnd_scaled.cos();
-    let sine_warp = sine * distribution;
-    let rnd = rnd - rnd * sine_warp;
-    let rnd = rnd * (1f32 - core_size) + core_size;
+    let mut rnd = rng.gen_range(0f32, 1f32 + std::f32::EPSILON);
+    rnd = scale(rnd, 1f32, FRAC_PI_2);
+    rnd = skew_by_cosine_with_distribution(rnd, distribution);
+    rnd = shift(rnd, core_size);
+    //let rnd = rnd * (1f32 - core_size) + core_size;
 
     if invert {
         rnd
@@ -58,6 +57,20 @@ fn generate_x(invert: bool, core_size: f32, distribution: f32, rng: &mut Pcg64) 
     }
 }
 
+fn skew_by_cosine_with_distribution(n: f32, distribution: f32) -> f32
+{
+    n - n * n.cos() * distribution
+}
+
+fn scale(n: f32, original_max: f32, new_max: f32) -> f32
+{
+    n / original_max * new_max
+}
+
+fn shift(n: f32, val: f32) -> f32
+{
+    n * (1f32 - val) + val
+}
 fn random_rotate2d_with_max_distance_and_distribute(
     xy: (f32, f32),
     max: f32,
@@ -65,27 +78,30 @@ fn random_rotate2d_with_max_distance_and_distribute(
     rng: &mut Pcg64,
 ) -> (f32, f32)
 {
-    let mut max_angle = (max / xy.0).asin().abs();
+    let mut max_angle = (max / xy.0).asin().abs() * 2f32;
     if max_angle.is_nan() {
-        max_angle = FRAC_PI_2;
+        max_angle = PI;
     } else {
-        max_angle = f32::min(max_angle, FRAC_PI_2);
+        max_angle = f32::min(max_angle, PI);
     }
 
     //  zero to max angle
     //let angle = lerp(&0f32, &(max_angle * 2f32), &(rng.gen_range(0f32, 1f32)));
-    let angle = rng.gen_range(0f32, (max_angle * 2f32) + f32::EPSILON);
+    let mut angle = rng.gen_range(0f32, max_angle + f32::EPSILON);
 
     // will be somewhere in between zero to PI
-    let angle_scaled = angle / (max_angle * 2f32) * PI;
+    //let angle_scaled = angle / (max_angle * 2f32) * PI;
 
     // will be somewhere in half sine wave 0 to 1 to 0
-    let sine = (angle_scaled).sin();
+    //let sine = (angle_scaled).sin();
 
     // a flatter or taller wave
-    let sine_distribution = sine * distribution; // * warp;
+    //let sine_distribution = sine * distribution; // * warp;
 
-    let angle = (angle - max_angle) - (angle - max_angle) * sine_distribution;
+    //let angle = (angle - max_angle) - (angle - max_angle) * sine_distribution;
+
+    angle =
+        skew_by_cosine_with_distribution(scale(angle, 1f32, PI) - max_angle / 2f32, distribution);
 
     rotate_2d(angle, xy)
 }
