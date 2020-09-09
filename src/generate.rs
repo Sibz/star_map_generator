@@ -12,24 +12,24 @@ pub fn generate_into_slice(entries: &mut [StarMapEntry], options: StarMapOptions
     let mut pcg_rng = Pcg64::seed_from_u64(options.seed);
 
     for e in entries.iter_mut() {
-        let x = generate_x(
-            invert,
-            options.core_size,
-            options.centre_distribution,
-            &mut pcg_rng,
-        );
+        let rand: u128 = pcg_rng.gen();
+        let a: f32 = (rand >> 96) as f32 / u32::MAX as f32;
+        let b: f32 = ((rand << 32) >> 96) as f32 / u32::MAX as f32;
+        let c: f32 = ((rand << 64) >> 96) as f32 / u32::MAX as f32;
+        //let d: u32 = ((rand << 96) >> 96) as u32;
+        let x = generate_x(invert, options.core_size, options.centre_distribution, a);
         let (x1, y1) = random_rotate2d_with_max_distance_and_distribute(
             (x, e.y),
             options.height,
             options.height_distribution,
-            &mut pcg_rng,
+            b,
         );
 
         let xz = random_rotate2d_with_max_distance_and_distribute(
             (x1, e.z),
             1f32,
             options.depth_distribution,
-            &mut pcg_rng,
+            c,
         );
 
         let (x3, z2) = apply_swirl(xz, options.swirl_magnitude, &mut pcg_rng);
@@ -42,9 +42,10 @@ pub fn generate_into_slice(entries: &mut [StarMapEntry], options: StarMapOptions
     }
 }
 
-fn generate_x(invert: bool, core_size: f32, distribution: f32, rng: &mut Pcg64) -> f32
+#[inline(always)]
+fn generate_x(invert: bool, core_size: f32, distribution: f32, a: f32) -> f32
 {
-    let mut rnd = rng.gen_range(0f32, 1f32 + std::f32::EPSILON);
+    let mut rnd = a; //(a as f32) / u32::MAX as f32; //rng.gen_range(0f32, 1f32 + std::f32::EPSILON);
     rnd = scale(rnd, 1f32, FRAC_PI_2);
     rnd = skew_by_cosine_with_distribution(rnd, distribution);
     rnd = shift(rnd, core_size);
@@ -57,25 +58,30 @@ fn generate_x(invert: bool, core_size: f32, distribution: f32, rng: &mut Pcg64) 
     }
 }
 
+#[inline(always)]
 fn skew_by_cosine_with_distribution(n: f32, distribution: f32) -> f32
 {
     n - n * n.cos() * distribution
 }
 
+#[inline(always)]
 fn scale(n: f32, original_max: f32, new_max: f32) -> f32
 {
     n / original_max * new_max
 }
 
+#[inline(always)]
 fn shift(n: f32, val: f32) -> f32
 {
     n * (1f32 - val) + val
 }
+
+#[inline(always)]
 fn random_rotate2d_with_max_distance_and_distribute(
     xy: (f32, f32),
     max: f32,
     distribution: f32,
-    rng: &mut Pcg64,
+    a: f32,
 ) -> (f32, f32)
 {
     let mut max_angle = (max / xy.0).asin().abs() * 2f32;
@@ -87,7 +93,7 @@ fn random_rotate2d_with_max_distance_and_distribute(
 
     //  zero to max angle
     //let angle = lerp(&0f32, &(max_angle * 2f32), &(rng.gen_range(0f32, 1f32)));
-    let mut angle = rng.gen_range(0f32, max_angle + f32::EPSILON);
+    //let mut angle = a * max_angle; // rng.gen_range(0f32, max_angle + f32::EPSILON);
 
     // will be somewhere in between zero to PI
     //let angle_scaled = angle / (max_angle * 2f32) * PI;
@@ -100,20 +106,23 @@ fn random_rotate2d_with_max_distance_and_distribute(
 
     //let angle = (angle - max_angle) - (angle - max_angle) * sine_distribution;
 
-    angle =
-        skew_by_cosine_with_distribution(scale(angle, 1f32, PI) - max_angle / 2f32, distribution);
+    let angle = skew_by_cosine_with_distribution(
+        scale(a * max_angle, 1f32, PI) - max_angle / 2f32,
+        distribution,
+    );
 
     rotate_2d(angle, xy)
 }
-
+#[inline(always)]
 fn apply_swirl(xz: (f32, f32), swirl_magnitude: f32, rng: &mut Pcg64) -> (f32, f32)
 {
     let (x, z) = xz;
-    let radian_rotation = swirl_magnitude * PI * 2f32 * ((x.abs() + z.abs()) / 2f32);
+    let radian_rotation = swirl_magnitude * PI * (x.abs() + z.abs());
     let rand_rotation = rng.gen_range(radian_rotation * 0.8, radian_rotation);
     rotate_2d(rand_rotation, xz)
 }
 
+#[inline(always)]
 fn rotate_2d(angle: f32, xy: (f32, f32)) -> (f32, f32)
 {
     let (x, y) = xy;
