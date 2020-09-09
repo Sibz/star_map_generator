@@ -1,0 +1,15 @@
+[tasks.build]
+command = "cargo"
+args = ["build", "--manifest-path","star_map_generator_extern/Cargo.toml"]
+
+[tasks.copy]
+command = "xcopy"
+args = [
+    ".\\star_map_generator_extern\\target\\debug\\__star_gen_c.dll",
+    "C:\\Users\\steve\\Documents\\UnityProjects\\RustTest\\Assets\\Plugins\\__star_gen_c.dll", "/y"]
+
+[tasks.my-flow]
+dependencies = [
+    "build",
+    "copy"
+]
