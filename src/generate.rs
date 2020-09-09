@@ -21,6 +21,19 @@ pub fn generate_into_slice(entries: &mut [StarMapEntry], options: StarMapOptions
 
         //test(e);
 
+       /* generate_x_on_line(e, options.core_size, a);
+        distribute_x_towards_centre(e, options.centre_distribution);
+        flip_x_if_invert(e, invert);
+
+        let rotation_height = get_rotation_for_max(e, options.height, b);
+        skew_rotation_towards_midway(rotation_height, options.height_distribution);
+        rotate_2d_2(&mut e.x, &mut e.y, rotation_height);
+
+        let rotation_depth = get_rotation_for_max(e, options.depth, c);
+        skew_rotations_towards_midway(rotation_depth, options.depth_distribution);
+        add_swirl(rotation_depth, options.swirl_magnitude);
+        rotate_2d_2(&mut e.x, &mut e.z, rotation_depth);*/
+
         generate_x(invert, options.core_size, options.centre_distribution, e, a);
 
         let (x1, y1) =
@@ -123,3 +136,9 @@ fn rotate_2d(angle: f32, xy: (f32, f32)) -> (f32, f32)
     let (s, c) = angle.sin_cos();
     (x * c - y * s, x * s + y * c)
 }
+
+/*fn rotate_2d_2(x: &mut f32, y: &mut f32, angle: &f32) {
+    let (s, c) = angle.sin_cos();
+    *x = *x * c - *y * s;
+    *y = *x * s + *y * c;
+}*/
