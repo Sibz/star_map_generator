@@ -9,13 +9,11 @@ use std::f32::consts::PI;
 pub fn generate_into_slice(entries: &mut [StarMapEntry], options: StarMapOptions)
 {
     let mut invert: bool = false;
-    //let mut pcg_rng = Pcg64::seed_from_u64(options.seed);
+
     let mut rng = Pcg64::seed_from_u64(options.seed);
 
-
-
-    for e in entries.iter_mut() {
-
+    for e in entries.iter_mut()
+    {
         let a = rng.gen_range(0f32,1f32);
         let b = rng.gen_range(0f32,1f32);
         let c = rng.gen_range(0f32,1f32);
@@ -25,21 +23,21 @@ pub fn generate_into_slice(entries: &mut [StarMapEntry], options: StarMapOptions
 
         generate_x(invert, options.core_size, options.centre_distribution, e, a);
 
-        let x = e.x;
+        let (x1, y1) =
+            random_rotate2d_with_max_distance_and_distribute(
+                (e.x, e.y),
+                options.height,
+                options.height_distribution,
+                b,
+            );
 
-        let (x1, y1) = random_rotate2d_with_max_distance_and_distribute(
-            (x, e.y),
-            options.height,
-            options.height_distribution,
-            b,
-        );
-
-        let xz = random_rotate2d_with_max_distance_and_distribute(
-            (x1, e.z),
-            1f32,
-            options.depth_distribution,
-            c,
-        );
+        let xz =
+            random_rotate2d_with_max_distance_and_distribute(
+                (x1, e.z),
+                1f32,
+                options.depth_distribution,
+                c,
+            );
 
         let (x3, z2) = apply_swirl(xz, options.swirl_magnitude, d);
 
@@ -114,7 +112,7 @@ fn apply_swirl(xz: (f32, f32), swirl_magnitude: f32, rng: f32) -> (f32, f32)
 {
     let (x, z) = xz;
     let radian_rotation = swirl_magnitude * PI * (x.abs() + z.abs());
-    let rand_rotation = radian_rotation + (rng / 5f32 - 0.1f32) * radian_rotation;
+    let rand_rotation = radian_rotation + (rng * -0.05f32) * PI;
     rotate_2d(rand_rotation, xz)
 }
 
