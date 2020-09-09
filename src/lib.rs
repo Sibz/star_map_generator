@@ -10,7 +10,8 @@ use star_map_c::StarMapVecC;
 pub fn generate_star_map_in_preallocated_memory(
     options: StarMapOptions,
     pointer: *mut StarMapEntry,
-) -> Result<(), String> {
+) -> Result<(), String>
+{
     let result = options.validate();
 
     if result.is_err() {
@@ -27,7 +28,8 @@ pub fn generate_star_map_in_preallocated_memory(
     Ok(())
 }
 
-pub fn generate(options: StarMapOptions) -> Result<Vec<StarMapEntry>, String> {
+pub fn generate(options: StarMapOptions) -> Result<Vec<StarMapEntry>, String>
+{
     let mut x: Vec<StarMapEntry> = vec![
         StarMapEntry {
             x: 0f32,
@@ -47,7 +49,8 @@ pub fn generate(options: StarMapOptions) -> Result<Vec<StarMapEntry>, String> {
 
 #[repr(C)]
 #[derive(Clone)]
-pub struct StarMapEntry {
+pub struct StarMapEntry
+{
     pub x: f32,
     pub y: f32,
     pub z: f32,

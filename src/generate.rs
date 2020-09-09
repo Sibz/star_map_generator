@@ -1,15 +1,13 @@
 use crate::options::StarMapOptions;
 use crate::StarMapEntry;
-use interpolation::*;
 use rand::prelude::*;
 use rand::SeedableRng;
 use rand_pcg::Pcg64;
-use std::f32::consts::FRAC_2_PI;
 use std::f32::consts::FRAC_PI_2;
 use std::f32::consts::PI;
 
-pub fn generate_into_slice(entries: &mut [StarMapEntry], options: StarMapOptions) {
-    let len = entries.len() as f32;
+pub fn generate_into_slice(entries: &mut [StarMapEntry], options: StarMapOptions)
+{
     let mut i: u32 = 0;
     let mut pcg_rng = Pcg64::seed_from_u64(options.seed);
 
@@ -51,7 +49,8 @@ pub fn generate_into_slice(entries: &mut [StarMapEntry], options: StarMapOptions
     }
 }
 
-fn generate_x(i: u32, core_size: f32, distribution: f32, rng: &mut Pcg64) -> f32 {
+fn generate_x(i: u32, core_size: f32, distribution: f32, rng: &mut Pcg64) -> f32
+{
     let rnd = rng.gen_range(0f32, 1f32 + std::f32::EPSILON);
     let rnd_scaled = rnd * FRAC_PI_2;
     let sine = rnd_scaled.cos();
@@ -73,7 +72,8 @@ fn random_rotate2d_with_max_distance_and_distribute(
     max: f32,
     distribution: f32,
     rng: &mut Pcg64,
-) -> (f32, f32) {
+) -> (f32, f32)
+{
     let mut max_angle = (max / xy.0).asin().abs();
     if max_angle.is_nan() {
         max_angle = FRAC_PI_2;
@@ -99,14 +99,16 @@ fn random_rotate2d_with_max_distance_and_distribute(
     rotate_2d(angle, xy)
 }
 
-fn apply_swirl(xz: (f32, f32), swirl_magnitude: f32, rng: &mut Pcg64) -> (f32, f32) {
+fn apply_swirl(xz: (f32, f32), swirl_magnitude: f32, rng: &mut Pcg64) -> (f32, f32)
+{
     let (x, z) = xz;
     let radian_rotation = swirl_magnitude * PI * 2f32 * ((x.abs() + z.abs()) / 2f32);
     let rand_rotation = rng.gen_range(radian_rotation * 0.8, radian_rotation);
     rotate_2d(rand_rotation, xz)
 }
 
-fn rotate_2d(angle: f32, xy: (f32, f32)) -> (f32, f32) {
+fn rotate_2d(angle: f32, xy: (f32, f32)) -> (f32, f32)
+{
     let (x, y) = xy;
     let (s, c) = angle.sin_cos();
     (x * c - y * s, x * s + y * c)

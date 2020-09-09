@@ -1,7 +1,8 @@
 macro_rules! name_of {
     ($name:ident in $ty:ty) => {{
         #[allow(dead_code)]
-        fn dummy(v: $ty) {
+        fn dummy(v: $ty)
+        {
             let _ = &v.$name;
         }
         stringify!($name)
@@ -14,7 +15,8 @@ macro_rules! name_of {
 }
 
 #[repr(C)]
-pub struct StarMapOptions {
+pub struct StarMapOptions
+{
     pub seed: u64,
     pub object_count: u32,
     pub centre_distribution: f32,
@@ -30,8 +32,10 @@ pub struct StarMapOptions {
     pub val4_3_max: u8,
 }
 
-impl StarMapOptions {
-    pub fn defaults() -> StarMapOptions {
+impl StarMapOptions
+{
+    pub fn defaults() -> StarMapOptions
+    {
         StarMapOptions {
             seed: 1337,
             object_count: 10000,
@@ -49,7 +53,8 @@ impl StarMapOptions {
         }
     }
 
-    pub fn validate(&self) -> Result<(), String> {
+    pub fn validate(&self) -> Result<(), String>
+    {
         let mut err_message = String::new();
 
         add_error_if_not_zero_to_one(
@@ -101,7 +106,8 @@ impl StarMapOptions {
     }
 }
 
-fn add_error_if_not_zero_to_one(f: f32, err_message: &mut String, var_name: &str) {
+fn add_error_if_not_zero_to_one(f: f32, err_message: &mut String, var_name: &str)
+{
     if f < 0f32 || f > 1f32 {
         err_message.push_str(&format!(
             "{} must be between 0 and 1 (inclusive).\n",
