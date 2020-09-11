@@ -2,7 +2,7 @@
 #[cfg(test)]
 mod generate_tests {
     use crate::options::StarMapOptions;
-    use crate::generate::generate_into_slice;
+    use crate::generate::{generate_into_slice};
     use crate::generate;
     use crate::StarMapEntry;
 
@@ -13,7 +13,7 @@ mod generate_tests {
     //use std::f32::consts::PI;
 
     #[bench]
-    pub fn bench_generate(b: &mut Bencher) {
+    pub fn bench_generate1(b: &mut Bencher) {
         let mut x: Vec<StarMapEntry> = vec![
             StarMapEntry {
                 x: 0f32,
@@ -21,15 +21,54 @@ mod generate_tests {
                 z: 0f32,
                 w: 0f32,
             };
-            16
+            10000
         ];
 
         b.iter(|| {
             let mut defaults = StarMapOptions::defaults();
-            defaults.object_count = 16;
+            defaults.object_count = 10000;
             generate_into_slice(&mut x, defaults);
         });
     }
+
+    #[bench]
+    pub fn bench_generate2(b: &mut Bencher) {
+        let mut x: Vec<StarMapEntry> = vec![
+            StarMapEntry {
+                x: 0f32,
+                y: 0f32,
+                z: 0f32,
+                w: 0f32,
+            };
+            10000
+        ];
+
+        b.iter(|| {
+            let mut defaults = StarMapOptions::defaults();
+            defaults.object_count = 10000;
+            generate_into_slice(&mut x, defaults);
+        });
+    }
+
+    #[bench]
+    pub fn bench_generate3(b: &mut Bencher) {
+        let mut x: Vec<StarMapEntry> = vec![
+            StarMapEntry {
+                x: 0f32,
+                y: 0f32,
+                z: 0f32,
+                w: 0f32,
+            };
+            10000
+        ];
+
+        b.iter(|| {
+            let mut defaults = StarMapOptions::defaults();
+            defaults.object_count = 10000;
+            generate_into_slice(&mut x, defaults);
+        });
+    }
+
 
 
     #[test]

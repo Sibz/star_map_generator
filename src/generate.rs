@@ -3,11 +3,10 @@ use crate::StarMapEntry;
 use rand::prelude::*;
 use rand::SeedableRng;
 use std::f32::consts::PI;
+use std::f32::consts::FRAC_PI_2;
 use rayon::prelude::*;
 
-const HALF_PI: f32 = PI / 2f32;
-
-const CHUNK_SIZE: usize = 80;
+const CHUNK_SIZE: usize = 64;
 
 use rand_xoshiro::Xoshiro256Plus;
 
@@ -48,7 +47,7 @@ pub fn generate_into_slice_with_chunk_size(entries: &mut [StarMapEntry], options
 
 fn generate_x(entry: &mut StarMapEntry, invert: bool, core_size: f32, distribution: f32, rand: f32)
 {
-    entry.x = (rand - rand * (rand * HALF_PI).cos() * distribution) * (1f32 - core_size) + core_size;
+    entry.x = (rand - rand * (rand * FRAC_PI_2).cos() * distribution) * (1f32 - core_size) + core_size;
 
     if invert
     {
@@ -63,7 +62,7 @@ fn generate_xy(entry: &mut StarMapEntry, height: f32, distribution: f32, rand: f
 
 fn generate_xz(entry: &mut StarMapEntry, depth: f32, distribution: f32, swirl_magnitude: f32, randa: f32, randb: f32)
 {
-    rotate_around_y_0(entry, get_angle(entry.x, depth, distribution, randa) + swirl_magnitude * PI * entry.x.abs() + (randb * -0.05f32));
+    rotate_around_y_0(entry, get_angle(entry.x, depth, distribution, randa) + swirl_magnitude * entry.x.abs() + (randb * -0.05f32));
 }
 
 fn get_angle(x: f32, max: f32, distribution: f32, rand: f32) -> f32 {
@@ -75,11 +74,11 @@ fn get_angle(x: f32, max: f32, distribution: f32, rand: f32) -> f32 {
 fn get_max_angle(x: f32, max_dist: f32) -> f32 {
     if x.abs() <= max_dist
     {
-        return HALF_PI;
+        return FRAC_PI_2;
     }
 
     let max_angle = (max_dist / x).asin();
-    f32::min(max_angle, HALF_PI)
+    f32::min(max_angle, FRAC_PI_2)
 }
 
 fn rotate_around_z_0(entry: &mut StarMapEntry, angle: f32) {
@@ -100,9 +99,8 @@ fn rotate_around_y_0(entry: &mut StarMapEntry, angle: f32) {
 mod tests {
     use std::f32::consts::PI;
     use crate::StarMapEntry;
-    use std::f32;
 
-    use super::HALF_PI;
+    use super::FRAC_PI_2;
 
     #[test]
     pub fn get_angle_when_rand_is_0p5_should_get_half_max_angle() {
@@ -152,41 +150,41 @@ mod tests {
 
     #[test]
     pub fn get_max_angle_when_max_dist_is_one_should_return_half_pi() {
-        assert_eq!(super::get_max_angle(1f32, 1f32), HALF_PI);
+        assert_eq!(super::get_max_angle(1f32, 1f32), FRAC_PI_2);
     }
 
     #[test]
     pub fn get_max_angle_when_max_dist_is_above_one_should_return_half_pi() {
-        assert_eq!(super::get_max_angle(1f32, 2f32), HALF_PI);
+        assert_eq!(super::get_max_angle(1f32, 2f32), FRAC_PI_2);
     }
 
     #[test]
-    pub fn get_max_angle_when_max_dist_is_point_five_should_return_a_third_pi() {
-        assert_eq!(super::get_max_angle(1f32, 0.5f32), PI / 3f32);
+    pub fn get_max_angle_when_max_dist_is_point_five_should_return_sixth_pi() {
+        assert_eq!(super::get_max_angle(1f32, 0.5f32), PI / 6f32);
     }
 
     #[test]
     pub fn get_max_angle_when_dist_is_less_than_max_return_half_pi() {
-        assert_eq!(super::get_max_angle(0.5f32, 1f32), HALF_PI);
+        assert_eq!(super::get_max_angle(0.5f32, 1f32), FRAC_PI_2);
     }
 
     #[test]
     pub fn get_max_angle_when_max_dist_is_one_should_return_half_pi_neg() {
-        assert_eq!(super::get_max_angle(-1f32, 1f32), HALF_PI);
+        assert_eq!(super::get_max_angle(-1f32, 1f32), FRAC_PI_2);
     }
 
     #[test]
-    pub fn get_max_angle_when_max_dist_is_above_one_should_returnhalf_pi_neg() {
-        assert_eq!(super::get_max_angle(-1f32, 2f32), HALF_PI);
+    pub fn get_max_angle_when_max_dist_is_above_one_should_return_half_pi_neg() {
+        assert_eq!(super::get_max_angle(-1f32, 2f32), FRAC_PI_2);
     }
 
     #[test]
-    pub fn get_max_angle_when_max_dist_is_point_five_should_return_a_third_pi_neg() {
-        assert_eq!(super::get_max_angle(-1f32, 0.5f32), PI / 3f32);
+    pub fn get_max_angle_when_max_dist_is_point_five_should_return_sixth_pi_neg() {
+        assert_eq!(super::get_max_angle(-1f32, 0.5f32), -PI / 6f32);
     }
 
     #[test]
     pub fn get_max_angle_when_dist_is_less_than_max_return_half_pi_neg() {
-        assert_eq!(super::get_max_angle(-0.5f32, 1f32), -HALF_PI);
+        assert_eq!(super::get_max_angle(-0.5f32, 1f32), FRAC_PI_2);
     }
 }
