@@ -41,7 +41,7 @@ pub fn generate_into_slice(entries: &mut [StarMapEntry], options: StarMapOptions
 
 fn generate_x(entry: &mut StarMapEntry, invert: bool, core_size: f32, distribution: f32, rand: f32)
 {
-    entry.x = (rand - rand * (rand * FRAC_PI_2).cos() * distribution) * (1f32 - core_size) + core_size;
+    entry.x = skew_by_cosine_with_scale_and_modifier(rand,FRAC_PI_2, distribution) * (1f32 - core_size) + core_size;
 
     if invert
     {
@@ -61,8 +61,7 @@ fn generate_xz(entry: &mut StarMapEntry, depth: f32, distribution: f32, swirl_ma
 
 fn get_angle(x: f32, max: f32, distribution: f32, rand: f32) -> f32 {
     let max_angle = get_max_angle(x, max);
-    let n = rand * max_angle;
-    n - n * (n.cos()) * distribution
+    skew_by_cosine_with_scale_and_modifier(rand * max_angle, 1f32, distribution)
 }
 
 fn get_max_angle(x: f32, max_dist: f32) -> f32 {
@@ -73,6 +72,10 @@ fn get_max_angle(x: f32, max_dist: f32) -> f32 {
 
     let max_angle = (max_dist / x).asin();
     f32::min(max_angle, FRAC_PI_2)
+}
+
+fn skew_by_cosine_with_scale_and_modifier(n:f32, scale: f32, modifier: f32) -> f32 {
+    n - n * (n * scale).cos() * modifier
 }
 
 fn rotate_around_z_0(entry: &mut StarMapEntry, angle: f32) {
