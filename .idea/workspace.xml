@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true">
+    <generated />
+  </component>
+  <component name="CMakeSettings">
+    <configurations>
+      <configuration PROFILE_NAME="Debug" CONFIG_NAME="Debug" />
+    </configurations>
+  </component>
+  <component name="CargoProjects">
+    <cargoProject FILE="$PROJECT_DIR$/Cargo.toml" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="23f1045b-e2b5-4a0e-b3c9-1f1993333032" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/tests/generate.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/Cargo.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/make.toml" beforeDir="false" afterPath="$PROJECT_DIR$/make.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/generate.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/generate.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/options.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/options.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tests.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/tests.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tests/options.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/tests/options.rs" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Rust File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MacroExpansionManager">
+    <option name="directoryName" value="m62w51hv" />
+  </component>
+  <component name="ProjectId" id="1hGLgHoscPHFHOWfuGc9mkxTRfY" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="cf.first.check.clang-format" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/star_map_generator_extern" />
+    <property name="org.rust.cargo.project.model.PROJECT_DISCOVERY" value="true" />
+    <property name="settings.editor.selected.configurable" value="Debugger.Rust.DataView" />
+  </component>
+  <component name="RunAnythingCache">
+    <option name="myCommands">
+      <command value="cargo build" />
+      <command value="cargo make --makefile make.toml build" />
+      <command value="cargo make --makefile make.toml my-flow" />
+      <command value="cargo check" />
+      <command value="cargo make --makefile make.toml buildd" />
+      <command value="cargo test" />
+      <command value="cargo bench" />
+      <command value="cargo make --makefile make.toml buildr" />
+    </option>
+  </component>
+  <component name="RunAnythingContextRecentDirectoryCache">
+    <option name="paths">
+      <recentPaths value="$PROJECT_DIR$/star_map_generator_extern" />
+    </option>
+  </component>
+  <component name="RunManager" selected="Cargo Command.make">
+    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Expand star_map_generator::generate" type="CargoCommandRunConfiguration" factoryName="Cargo Command" temporary="true">
+      <option name="channel" value="DEFAULT" />
+      <option name="command" value="expand --lib --color=always --theme=GitHub --tests generate" />
+      <option name="allFeatures" value="false" />
+      <option name="emulateTerminal" value="false" />
+      <option name="backtrace" value="SHORT" />
+      <option name="workingDirectory" value="file://$PROJECT_DIR$" />
+      <envs />
+      <method v="2">
+        <option name="CARGO.BUILD_TASK_PROVIDER" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="bench" type="CargoCommandRunConfiguration" factoryName="Cargo Command" temporary="true">
+      <option name="channel" value="DEFAULT" />
+      <option name="command" value="bench" />
+      <option name="allFeatures" value="false" />
+      <option name="emulateTerminal" value="false" />
+      <option name="backtrace" value="SHORT" />
+      <option name="workingDirectory" value="file://$PROJECT_DIR$" />
+      <envs />
+      <method v="2">
+        <option name="CARGO.BUILD_TASK_PROVIDER" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="check" type="CargoCommandRunConfiguration" factoryName="Cargo Command" temporary="true">
+      <option name="channel" value="DEFAULT" />
+      <option name="command" value="check" />
+      <option name="allFeatures" value="false" />
+      <option name="emulateTerminal" value="false" />
+      <option name="backtrace" value="SHORT" />
+      <option name="workingDirectory" value="file://$PROJECT_DIR$" />
+      <envs />
+      <method v="2">
+        <option name="CARGO.BUILD_TASK_PROVIDER" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="make" type="CargoCommandRunConfiguration" factoryName="Cargo Command" temporary="true">
+      <option name="channel" value="DEFAULT" />
+      <option name="command" value="make --makefile make.toml buildr" />
+      <option name="allFeatures" value="false" />
+      <option name="emulateTerminal" value="false" />
+      <option name="backtrace" value="SHORT" />
+      <option name="workingDirectory" value="file://$PROJECT_DIR$" />
+      <envs />
+      <method v="2">
+        <option name="CARGO.BUILD_TASK_PROVIDER" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="test" type="CargoCommandRunConfiguration" factoryName="Cargo Command" temporary="true">
+      <option name="channel" value="DEFAULT" />
+      <option name="command" value="test" />
+      <option name="allFeatures" value="false" />
+      <option name="emulateTerminal" value="false" />
+      <option name="backtrace" value="SHORT" />
+      <option name="workingDirectory" value="file://$PROJECT_DIR$" />
+      <envs />
+      <method v="2">
+        <option name="CARGO.BUILD_TASK_PROVIDER" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Cargo Command.test" />
+      <item itemvalue="Cargo Command.check" />
+      <item itemvalue="Cargo Command.make" />
+      <item itemvalue="Cargo Command.Expand star_map_generator::generate" />
+      <item itemvalue="Cargo Command.bench" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Cargo Command.make" />
+        <item itemvalue="Cargo Command.make" />
+        <item itemvalue="Cargo Command.make" />
+        <item itemvalue="Cargo Command.make" />
+        <item itemvalue="Cargo Command.make" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="RustProjectSettings">
+    <option name="toolchainHomeDirectory" value="$USER_HOME$/.cargo/bin" />
+    <option name="version" value="2" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="23f1045b-e2b5-4a0e-b3c9-1f1993333032" name="Default Changelist" comment="" />
+      <created>1599632592943</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1599632592943</updated>
+      <workItem from="1599632594870" duration="15415000" />
+      <workItem from="1599692201233" duration="42285000" />
+    </task>
+    <task id="LOCAL-00001" summary="Added support files">
+      <created>1599642461621</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1599642461621</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Refactored generate a lil bit">
+      <created>1599646216239</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1599646216239</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Fixed issue with swirl">
+      <created>1599647252316</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1599647252316</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Added some commented code to implement">
+      <created>1599648472203</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1599648472203</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Added support files" />
+    <MESSAGE value="Refactored generate a lil bit" />
+    <MESSAGE value="Fixed issue with swirl" />
+    <MESSAGE value="Added some commented code to implement" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added some commented code to implement" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="1473" y="325" width="1092" height="715" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1599633268294">
+      <screen x="0" y="0" width="3440" height="1400" />
+    </state>
+    <state x="1473" y="325" width="1092" height="715" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.3440.1400@0.0.3440.1400" timestamp="1599633268294" />
+    <state x="2310" y="465" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1599741256696">
+      <screen x="0" y="0" width="3440" height="1400" />
+    </state>
+    <state x="2310" y="465" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.3440.1400@0.0.3440.1400" timestamp="1599741256696" />
+    <state x="1798" y="425" key="FileChooserDialogImpl" timestamp="1599633888442">
+      <screen x="0" y="0" width="3440" height="1400" />
+    </state>
+    <state x="1798" y="425" key="FileChooserDialogImpl/0.0.3440.1400@0.0.3440.1400" timestamp="1599633888442" />
+    <state width="1674" height="282" key="GridCell.Tab.0.bottom" timestamp="1599787494772">
+      <screen x="0" y="0" width="3440" height="1400" />
+    </state>
+    <state width="1674" height="282" key="GridCell.Tab.0.bottom/0.0.3440.1400@0.0.3440.1400" timestamp="1599787494772" />
+    <state width="1674" height="282" key="GridCell.Tab.0.center" timestamp="1599787494772">
+      <screen x="0" y="0" width="3440" height="1400" />
+    </state>
+    <state width="1674" height="282" key="GridCell.Tab.0.center/0.0.3440.1400@0.0.3440.1400" timestamp="1599787494772" />
+    <state width="1674" height="282" key="GridCell.Tab.0.left" timestamp="1599787494772">
+      <screen x="0" y="0" width="3440" height="1400" />
+    </state>
+    <state width="1674" height="282" key="GridCell.Tab.0.left/0.0.3440.1400@0.0.3440.1400" timestamp="1599787494772" />
+    <state width="1674" height="282" key="GridCell.Tab.0.right" timestamp="1599787494772">
+      <screen x="0" y="0" width="3440" height="1400" />
+    </state>
+    <state width="1674" height="282" key="GridCell.Tab.0.right/0.0.3440.1400@0.0.3440.1400" timestamp="1599787494772" />
+    <state width="1674" height="391" key="GridCell.Tab.1.bottom" timestamp="1599782146285">
+      <screen x="0" y="0" width="3440" height="1400" />
+    </state>
+    <state width="1674" height="391" key="GridCell.Tab.1.bottom/0.0.3440.1400@0.0.3440.1400" timestamp="1599782146285" />
+    <state width="1674" height="391" key="GridCell.Tab.1.center" timestamp="1599782146285">
+      <screen x="0" y="0" width="3440" height="1400" />
+    </state>
+    <state width="1674" height="391" key="GridCell.Tab.1.center/0.0.3440.1400@0.0.3440.1400" timestamp="1599782146285" />
+    <state width="1674" height="391" key="GridCell.Tab.1.left" timestamp="1599782146284">
+      <screen x="0" y="0" width="3440" height="1400" />
+    </state>
+    <state width="1674" height="391" key="GridCell.Tab.1.left/0.0.3440.1400@0.0.3440.1400" timestamp="1599782146284" />
+    <state width="1674" height="391" key="GridCell.Tab.1.right" timestamp="1599782146285">
+      <screen x="0" y="0" width="3440" height="1400" />
+    </state>
+    <state width="1674" height="391" key="GridCell.Tab.1.right/0.0.3440.1400@0.0.3440.1400" timestamp="1599782146285" />
+    <state x="1608" y="430" key="RollbackChangesDialog" timestamp="1599642609922">
+      <screen x="0" y="0" width="3440" height="1400" />
+    </state>
+    <state x="1608" y="430" key="RollbackChangesDialog/0.0.3440.1400@0.0.3440.1400" timestamp="1599642609922" />
+    <state x="1859" y="312" key="SettingsEditor" timestamp="1599633120101">
+      <screen x="0" y="0" width="3440" height="1400" />
+    </state>
+    <state x="1859" y="312" key="SettingsEditor/0.0.3440.1400@0.0.3440.1400" timestamp="1599633120101" />
+    <state x="1675" y="318" width="672" height="677" key="run.anything.popup" timestamp="1599787494744">
+      <screen x="0" y="0" width="3440" height="1400" />
+    </state>
+    <state x="1675" y="318" width="672" height="677" key="run.anything.popup/0.0.3440.1400@0.0.3440.1400" timestamp="1599787494744" />
+    <state x="2237" y="328" width="672" height="678" key="search.everywhere.popup" timestamp="1599740920095">
+      <screen x="0" y="0" width="3440" height="1400" />
+    </state>
+    <state x="2237" y="328" width="672" height="678" key="search.everywhere.popup/0.0.3440.1400@0.0.3440.1400" timestamp="1599740920095" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/src/generate.rs</url>
+          <line>54</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+    <watches-manager>
+      <configuration name="Unity">
+        <watch expression="options.seed" language="Rust" />
+        <watch expression="options.core_size" language="Rust" />
+      </configuration>
+    </watches-manager>
+  </component>
+</project>
