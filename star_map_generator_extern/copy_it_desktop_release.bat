@@ -1,0 +1,2 @@
+cargo build --release
+copy "S:\OneDrive\Documents\Development\Rust Projects\star_map_generator\star_map_generator_extern\target\release\__star_gen_c.dll" "C:\Users\steve\Documents\UnityProjects\RustTest\Assets\Plugins\"

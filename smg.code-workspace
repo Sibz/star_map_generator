@@ -1,0 +1,16 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"cSpell.words": [
+			"Seedable",
+			"repr"
+		],
+		"terminal.integrated.env.windows": {
+			"RUST_BACKTRACE": "1"
+		}
+	}
+}
