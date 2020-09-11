@@ -31,28 +31,6 @@ pub fn generate_star_map_in_preallocated_memory(
     Ok(())
 }
 
-
-pub fn generate_star_map_in_preallocated_memory_with_chunk_size(
-    options: StarMapOptions,
-    pointer: *mut StarMapEntry,
-    chunk_size: usize) -> Result<(), String>
-{
-    let result = options.validate();
-
-    if result.is_err() {
-        return result;
-    }
-
-    let mut x = StarMapVecC {
-        ptr: pointer,
-        len: options.object_count,
-    };
-
-    generate::generate_into_slice_with_chunk_size(&mut x, options, chunk_size);
-
-    Ok(())
-}
-
 pub fn generate(options: StarMapOptions) -> Result<Vec<StarMapEntry>, String>
 {
     let mut x: Vec<StarMapEntry> = vec![
@@ -81,10 +59,3 @@ pub struct StarMapEntry
     pub z: f32,
     pub w: f32,
 }
-
-// impl Drop for CVec {
-//     fn drop(&mut self) {
-//         unsafe { deallocate_data(self.ptr) };
-//     }
-// }
-

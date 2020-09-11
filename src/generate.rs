@@ -12,21 +12,15 @@ use rand_xoshiro::Xoshiro256Plus;
 
 pub fn generate_into_slice(entries: &mut [StarMapEntry], options: StarMapOptions)
 {
-    generate_into_slice_with_chunk_size(entries, options, CHUNK_SIZE);
-}
-
-pub fn generate_into_slice_with_chunk_size(entries: &mut [StarMapEntry], options: StarMapOptions, chunk_size: usize)
-{
-
     let mut seeds: Vec<u64> = Vec::new();
 
     let mut rng1 = Xoshiro256Plus::seed_from_u64(options.seed);
 
-    entries.chunks(chunk_size).for_each(|_|{
+    entries.chunks(CHUNK_SIZE).for_each(|_|{
        seeds.push(rng1.gen())
     });
 
-    entries.par_chunks_mut(chunk_size).zip(seeds)
+    entries.par_chunks_mut(CHUNK_SIZE).zip(seeds)
         .for_each(|(c,s)|
             {
                 let mut invert: bool = false;
