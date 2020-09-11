@@ -2,14 +2,30 @@
 command = "cargo"
 args = ["build", "--manifest-path","star_map_generator_extern/Cargo.toml"]
 
+[tasks.buildRelease]
+command = "cargo"
+args = ["build", "--manifest-path","star_map_generator_extern/Cargo.toml", "--release"]
+
 [tasks.copy]
 command = "xcopy"
 args = [
     ".\\star_map_generator_extern\\target\\debug\\__star_gen_c.dll",
     "C:\\Users\\steve\\Documents\\UnityProjects\\RustTest\\Assets\\Plugins\\__star_gen_c.dll", "/y"]
 
-[tasks.my-flow]
+[tasks.copyRelease]
+command = "xcopy"
+args = [
+    ".\\star_map_generator_extern\\target\\release\\__star_gen_c.dll",
+    "C:\\Users\\steve\\Documents\\UnityProjects\\RustTest\\Assets\\Plugins\\__star_gen_c.dll", "/y"]
+
+[tasks.buildd]
 dependencies = [
     "build",
     "copy"
+]
+
+[tasks.buildr]
+dependencies = [
+    "buildRelease",
+    "copyRelease"
 ]

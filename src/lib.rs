@@ -1,3 +1,5 @@
+#![feature(test)]
+
 mod generate;
 pub mod options;
 mod star_map_c;
@@ -62,3 +64,4 @@ pub struct StarMapEntry
 //         unsafe { deallocate_data(self.ptr) };
 //     }
 // }
+
