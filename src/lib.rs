@@ -13,6 +13,7 @@ pub fn generate_star_map_in_preallocated_memory(
     options: StarMapOptions,
     pointer: *mut StarMapEntry,
 ) -> Result<(), String>
+
 {
     let result = options.validate();
 
@@ -26,6 +27,28 @@ pub fn generate_star_map_in_preallocated_memory(
     };
 
     generate::generate_into_slice(&mut x, options);
+
+    Ok(())
+}
+
+
+pub fn generate_star_map_in_preallocated_memory_with_chunk_size(
+    options: StarMapOptions,
+    pointer: *mut StarMapEntry,
+    chunk_size: usize) -> Result<(), String>
+{
+    let result = options.validate();
+
+    if result.is_err() {
+        return result;
+    }
+
+    let mut x = StarMapVecC {
+        ptr: pointer,
+        len: options.object_count,
+    };
+
+    generate::generate_into_slice_with_chunk_size(&mut x, options, chunk_size);
 
     Ok(())
 }
